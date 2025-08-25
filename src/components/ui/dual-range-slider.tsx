@@ -1,0 +1,56 @@
+"use client"
+
+import * as React from "react"
+import * as SliderPrimitive from "@radix-ui/react-slider"
+
+import { cn } from "@/lib/utils"
+
+interface DualRangeSliderProps
+  extends React.ComponentProps<typeof SliderPrimitive.Root> {
+  labelPosition?: "top" | "bottom"
+  label?: (value: number | undefined) => React.ReactNode
+}
+
+const DualRangeSlider = React.forwardRef<
+  React.ElementRef<typeof SliderPrimitive.Root>,
+  DualRangeSliderProps
+>(({ className, label, labelPosition = "top", ...props }, ref) => {
+  const initialValue = Array.isArray(props.value)
+    ? props.value
+    : [props.min, props.max]
+
+  return (
+    <SliderPrimitive.Root
+      ref={ref}
+      className={cn(
+        "relative flex w-full touch-none select-none items-center",
+        className
+      )}
+      {...props}
+    >
+      <SliderPrimitive.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20">
+        <SliderPrimitive.Range className="absolute h-full bg-primary" />
+      </SliderPrimitive.Track>
+      {initialValue.map((value, index) => (
+        <React.Fragment key={index}>
+          <SliderPrimitive.Thumb className="block cursor-pointer size-7 rounded-full border-8 border-white bg-primary  shadow-primary/50 shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+            {label && (
+              <span
+                className={cn(
+                  "absolute flex text-muted-foreground w-full justify-center mx-auto left-0 right-0",
+                  labelPosition === "top" && "-top-7",
+                  labelPosition === "bottom" && "top-9"
+                )}
+              >
+                {label(value)}
+              </span>
+            )}
+          </SliderPrimitive.Thumb>
+        </React.Fragment>
+      ))}
+    </SliderPrimitive.Root>
+  )
+})
+DualRangeSlider.displayName = "DualRangeSlider"
+
+export { DualRangeSlider }

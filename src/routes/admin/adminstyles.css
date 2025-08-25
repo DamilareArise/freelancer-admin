@@ -1,0 +1,15 @@
+.openLink {
+  animation: openLink 1s forwards;
+}
+
+@keyframes openLink {
+  from {
+    min-height: 3rem;
+  }
+  /* 50% {
+    height: 50%;
+  } */
+  to {
+    min-height: fit-content;
+  }
+}
