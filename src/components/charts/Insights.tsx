@@ -174,7 +174,11 @@ const Insights = () => {
                 />
               </linearGradient> */}
               <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#66F251" stopOpacity={0.8} />
+                <stop
+                  offset="10%"
+                  stopColor="var(--color-primary-200)"
+                  stopOpacity={0.8}
+                />
                 <stop offset="95%" stopColor="#fff" stopOpacity={0.1} />
               </linearGradient>
             </defs>

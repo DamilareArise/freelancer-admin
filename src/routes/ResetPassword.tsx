@@ -98,7 +98,7 @@ const ResetPassword = () => {
           >
             <h3 className="flex items-center font-semibold gap-2 font-poppins text-4xl">
               <MemoLogo className="size-10 text-primary-400" />
-              KLIKO
+              Freelancer
             </h3>
 
             {!done ? (

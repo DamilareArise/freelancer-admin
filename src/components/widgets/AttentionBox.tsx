@@ -20,7 +20,7 @@ const AttentionBox = () => {
       <div className="flex flex-col sm:flex-row  justify-between gap-6">
         <div className="flex flex-col">
           <h3 className="font-medium text-xl">
-            You have <span className="text-[#00ffaa]">{data.pending}</span>{" "}
+            You have <span className="text-primary-200">{data.pending}</span>{" "}
             pending {pluralize(data.pending, "listing")} waiting for your review
           </h3>
           <p className="text-xs">

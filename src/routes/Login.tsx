@@ -69,7 +69,7 @@ const Login = () => {
           >
             <h3 className="flex items-center font-semibold gap-2 font-poppins text-[1.4rem]">
               <MemoLogo className="size-7 text-primary-400" />
-              KLIKO
+              Freelancer
             </h3>
             <div className="flex flex-col gap-8 mt-[10%]">
               <div>
@@ -150,7 +150,7 @@ const Login = () => {
           </form>
         </Form>
       </div>
-      <div className="bg-[#EAFFF8] hidden p-10 md:flex overflow-hidden items-center justify-center relative">
+      <div className="bg-primary-100 hidden p-10 md:flex overflow-hidden items-center justify-center relative">
         <img
           src={loginbanner}
           alt="Login Banner"
@@ -172,7 +172,7 @@ const Login = () => {
                       className="flex even:mt-20 items-center font-semibold gap-2 font-poppins text-[1.75rem]"
                     >
                       <MemoLogo className="size-8 opacity-50 text-primary-400" />
-                      <span className="opacity-10">KLIKO</span>
+                      <span className="opacity-10">Freelancer</span>
                     </h3>
                   ))}
               </div>

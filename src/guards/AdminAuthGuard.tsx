@@ -36,12 +36,12 @@ const AdminAuthGuard = ({ Component }: { Component: React.FC }) => {
         {/* Loading... */}
         {/* <h3 className="animated-logo flex relative items-center font-semibold gap-2 font-poppins text-[1.75rem] text-base-black">
           <MemoLogo className="size-8 text-primary-400" />
-          <span>KLIKO</span>
+          <span>Freelancer</span>
         </h3> */}
 
         <h3 className="animated-logo flex relative items-center font-semibold gap-2 font-poppins text-[3rem] text-base-black">
           <MemoLogo className="size-12 text-primary-400" />
-          <span>KLIKO</span>
+          <span>Freelancer</span>
         </h3>
       </div>
     )

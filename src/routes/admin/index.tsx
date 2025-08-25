@@ -33,8 +33,8 @@ function Admin() {
           } px-4  overflowed transition text-white min-w-[15rem] sm:min-w-[17rem] duration-500 bg-primary-1000 h-dvh flex flex-col pt-6`}
         >
           <h3 className="flex relative mb-6 items-center font-semibold gap-2 font-poppins text-[1.75rem]">
-            <MemoLogo className="size-8 text-primary-400" />
-            <span>KLIKO</span>
+            <MemoLogo className="size-8 text-primary-200" />
+            <span>Freelancer</span>
           </h3>
 
           <div className="h-full max-h-[calc(100dvh_-_16rem)] overflow-auto no-scrollbar">
@@ -44,8 +44,10 @@ function Admin() {
                   key={each.label}
                   id={each.key}
                   className={cn(
-                    `text-primary-200 text-sm rounded-lg px-4 transition-all duration-300 hover:bg-primary-900 overflow-hidden`,
-                    pathname.includes(each.path) && "bg-primary-900"
+                    `text-sm rounded-lg px-4 transition-all duration-300 hover:bg-primary-900 overflow-hidden`,
+                    pathname.includes(each.path)
+                      ? "bg-primary-900"
+                      : "text-primary-200"
                   )}
                   style={{
                     maxHeight:
@@ -66,7 +68,7 @@ function Admin() {
                       "w-full flex items-center gap-2 h-12 min-h-12"
                     )}
                   >
-                    <each.icon className="size-6 text-[#B8F9E3]" />
+                    <each.icon className="size-6" />
                     <span className="truncate">{each.label}</span>
                     {each.children && (
                       <ChevronDown

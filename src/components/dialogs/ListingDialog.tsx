@@ -542,7 +542,8 @@ const ConfirmApprovalAlert = ({
           />
         </AlertD.AlertDialogHeader>
         <AlertD.AlertDialogDescription>
-          The service provider listing will go live on Kliko. Please ensure the
+          The service provider listing will go live on{" "}
+          <span className="font-medium">Freelancer</span>. Please ensure the
           listing details is in line with our guidelines and meet our listing
           criteria
         </AlertD.AlertDialogDescription>
