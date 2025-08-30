@@ -8,27 +8,32 @@ import {
   setAdminProfile,
 } from "@/slices/app.slice"
 import { Check } from "lucide-react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Navigate, useLocation } from "react-router"
 import * as Alert from "../components/ui/alert-dialog"
 
 const AdminAuthGuard = ({ Component }: { Component: React.FC }) => {
-  const { data, error, isLoading } = useGetAdminQuery("")
+  const { data, error, isLoading: isGettingAdmin } = useGetAdminQuery("")
   const dispatch = useAppDispatch()
   const { alertDialogData } = useAppSelector(selectApp)
   const { pathname } = useLocation()
+  const [isReady, setIsReady] = useState(false)
+  const isLoading = isGettingAdmin || !isReady
 
   useEffect(() => {
     if (data) {
       dispatch(setAdminProfile(data))
-    }
-  }, [data, dispatch])
-
-  useEffect(() => {
-    if (error) {
+    } else if (error) {
       dispatch(setAdminProfile(null))
     }
-  }, [error, dispatch])
+  }, [data, error, dispatch])
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("dd")
+      setIsReady(true)
+    }, 2400)
+  }, [])
 
   if (isLoading) {
     return (
