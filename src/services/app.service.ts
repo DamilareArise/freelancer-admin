@@ -8,9 +8,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 let _BURL;
 if (process.env.NODE_ENV === 'development') {
 	// _BURL = "https://6035-102-89-22-40.ngrok-free.app";
-	_BURL = "https://service.klikoproperty.com";
+	_BURL = "https://service.book-freelancer.com";
 } else {
-	_BURL = "https://service.klikoproperty.com";
+	_BURL = "https://service.book-freelancer.com";
 }
 
 export const BURL = _BURL;
