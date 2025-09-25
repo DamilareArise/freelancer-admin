@@ -26,6 +26,8 @@ const formSchema = z.object({
 
 const defaultField: CreateCategoryFeatures = {
   label: "Field 1",
+  label_en: "Field 1",
+  label_hr: "Field 1",
   id: "field1",
   rank: 1,
   action: "new",
@@ -100,6 +102,8 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
 
       const fields: CreateCategoryFeatures[] = category.category_features[0] ? category.category_features.map((each, i) => ({
         label: each.label,
+        label_hr: each.label_hr,
+        label_en: each.label_en,
         id: `field${i}`,
         action: "update",
         rank: i + 1,
@@ -254,6 +258,8 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
       })),
       category_features: featuresField.map((each) => ({
         label: each.label,
+        label_hr: each.label_hr,
+        label_en: each.label_en,
         options: each.options?.filter((option) => option),
         rank: each.rank,
         required: !!Number(each.required),

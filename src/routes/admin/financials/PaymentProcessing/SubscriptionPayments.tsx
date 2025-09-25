@@ -330,7 +330,7 @@ const SubscriptionPayments = () => {
               payments.map(
                 (
                   {
-                    listing: { created_by, property, images, category },
+                    listing: { created_by, service, images, category },
                     ...each
                   },
                   i,
@@ -345,10 +345,10 @@ const SubscriptionPayments = () => {
                             alt="Property Image"
                           />
                           <AvatarFallback>
-                            {property.header.charAt(0)}
+                            {service.header.charAt(0)}
                           </AvatarFallback>
                         </Avatar>
-                        <span>{property.header}</span>
+                        <span>{service.header}</span>
                       </span>
                     </td>
 

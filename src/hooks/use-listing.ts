@@ -93,7 +93,7 @@ export const useListingDialog = ({ open, setListing, listing, close }: ListingDi
     const request: Listing = {
       ...listing,
       // price: String(values.price),
-      property: {
+      service: {
         ...listing.service,
         description_en: values.description_en,
         description_hr: values.description_hr,

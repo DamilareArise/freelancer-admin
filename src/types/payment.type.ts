@@ -10,7 +10,7 @@ export interface Payment {
 	transaction_id: string,
 	price: number;
 	amount_paid: number;
-	listing: Pick<Listing, 'resources' | 'property' | 'images' | 'videos'> & {
+	listing: Pick<Listing, 'resources' | 'service' | 'images' | 'videos'> & {
 		category: string,
 		created_by: Pick<UserData, 'first_name' | 'last_name' | 'id' | 'passport' | 'initial' | 'fullname'>
 	}

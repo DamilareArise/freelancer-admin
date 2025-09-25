@@ -8,7 +8,7 @@ export type CreateCategory = Pick<Category, "name"> & {
 
 export type ChildActionType = "delete" | "update" | "new";
 
-export type CreateCategoryFeatures = Pick<CategoryFeature, | "label" | "type" | "unit" | "options" | "required"> & {
+export type CreateCategoryFeatures = Omit<CategoryFeature, "id" | "category" | "created_by"> & {
 	id: string,
 	rank: number,
 	action: ChildActionType,
@@ -46,6 +46,8 @@ export interface CategoryFeature {
 	category: number;
 	created_by: number;
 	label: string;
+	label_en: string;
+	label_hr: string;
 	unit?: string;
 	type: FeatureFieldType;
 	required: boolean;

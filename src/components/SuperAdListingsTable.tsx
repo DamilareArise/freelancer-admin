@@ -64,7 +64,7 @@ const SuperAdListingsTable = ({
                       ) : (
                         <div className="bg-neutral-100 size-6 rounded-full"></div>
                       )}
-                      <span>{each.property.header}</span>
+                      <span>{each.service.header}</span>
                     </span>
                   </td>
                   <td>
