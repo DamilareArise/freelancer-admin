@@ -88,7 +88,7 @@ const ReviewBox: React.FC<{ review: Review }> = ({ review }) => {
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col gap-1">
-          <h3 className="font-semibold">{listing.property.header}</h3>
+          <h3 className="font-semibold">{listing.service.header}</h3>
           <p className="flex text-xs gap-1 text-neutral-600">
             <MapPin className="size-4" /> {listing.address}
           </p>

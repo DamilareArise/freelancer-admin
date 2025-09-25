@@ -105,7 +105,7 @@ const UserDialog = ({
     const filtered = allBookings.filter(
       (each) =>
         each.status == status ||
-        each.listing.property.header.toLowerCase().includes(search) ||
+        each.listing.service.header.toLowerCase().includes(search) ||
         each.listing.address.toLowerCase().includes(search) ||
         each.requester.fullname.toLowerCase().includes(search)
     )
@@ -341,11 +341,6 @@ const UserDialog = ({
                   <div className="grid grid-cols-2 gap-3 w-full mt-[28px] mb-[28px]">
                     <Button
                       type="button"
-                      className={`font-normal ${
-                        handler.selectedTab === "bookingHistory"
-                          ? "bg-[#10B981] text-white"
-                          : ""
-                      }`}
                       variant={
                         handler.selectedTab === "bookingHistory"
                           ? "default"
@@ -359,11 +354,6 @@ const UserDialog = ({
 
                     <Button
                       type="button"
-                      className={`font-normal ${
-                        handler.selectedTab === "listings"
-                          ? "bg-[#10B981] text-white"
-                          : ""
-                      }`}
                       variant={
                         handler.selectedTab === "listings" ? "default" : "ghost"
                       }

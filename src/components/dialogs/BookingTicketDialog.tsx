@@ -88,7 +88,7 @@ const BookingTicketDialog = ({
             />
             <TicketLine
               label="Property"
-              value={booking.listing.property.header}
+              value={booking.listing.service.header}
             />
             <TicketLine
               label="Booking Date"

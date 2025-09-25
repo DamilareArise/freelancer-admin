@@ -79,7 +79,7 @@ const CategoryDialog = (props: CategoryDialogProps) => {
               )}
             />
 
-            <FormField
+            {/* <FormField
               control={handler.form.control}
               name="type"
               render={({ field }) => (
@@ -112,7 +112,7 @@ const CategoryDialog = (props: CategoryDialogProps) => {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
 
             <div className="flex gap-4">
               {/* {handler.form.watch("type") === "earnings" && (
@@ -225,7 +225,7 @@ const CategoryDialog = (props: CategoryDialogProps) => {
                                   </Sel.SelectTrigger>
                                 </FormControl>
                                 <Sel.SelectContent>
-                                  {new Array(12)
+                                  {new Array(36)
                                     .fill(0)
                                     .map((_each, monthIndex) => (
                                       <Sel.SelectItem

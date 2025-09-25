@@ -22,7 +22,7 @@ const BookingCard: React.FC<BookingCardProps> = ({ booking }) => {
 
         <div className="flex flex-col gap-[12px]">
           <p className="text-[14px] md:text-[18px] font-[600] text-[#151413]">
-            {booking.listing.property.header}
+            {booking.listing.service.header}
           </p>
           <span className="flex items-center gap-[4px]">
             <MemoDarkLocation />

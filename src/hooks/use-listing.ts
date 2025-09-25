@@ -55,9 +55,9 @@ export const useListingDialog = ({ open, setListing, listing, close }: ListingDi
       form.reset(defaultForm)
       setEditing(false)
     } else if (open && listing) {
-      form.setValue("description_en", listing.property?.description_en, { shouldValidate: true });
+      form.setValue("description_en", listing.service?.description_en, { shouldValidate: true });
       form.setValue("price", Number(listing.price), { shouldValidate: true });
-      form.setValue("description_hr", listing.property?.description_hr ?? "", { shouldValidate: true });
+      form.setValue("description_hr", listing.service?.description_hr ?? "", { shouldValidate: true });
       listing.features?.forEach(({ feature_field, type, value }) => {
         if (type == "number") {
           form.setValue(String(feature_field), value ? Number(value) : 0, { shouldValidate: true });
@@ -94,7 +94,7 @@ export const useListingDialog = ({ open, setListing, listing, close }: ListingDi
       ...listing,
       // price: String(values.price),
       property: {
-        ...listing.property,
+        ...listing.service,
         description_en: values.description_en,
         description_hr: values.description_hr,
       },

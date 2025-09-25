@@ -53,10 +53,10 @@ const BookingsTable = ({
                         alt="Profile Image"
                       />
                       <AvatarFallback>
-                        {each.listing.property.header.charAt(0)}
+                        {each.listing.service.header.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
-                    <span>{each.listing.property.header}</span>
+                    <span>{each.listing.service.header}</span>
                   </span>
                 </td>
                 <td className="flex gap-2 items-center">

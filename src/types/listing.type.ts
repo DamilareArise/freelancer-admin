@@ -25,7 +25,7 @@ import { CategoryFeature, FeatureFieldType } from "./category.type";
 export interface Listing {
 	id: number;
 	location: ListingLocation;
-	property: ListingProperty;
+	service: ListingProperty;
 	contact: ListingContact;
 	resources: ListingResource[];
 	images: ListingResource[];

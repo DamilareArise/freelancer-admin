@@ -12,7 +12,7 @@ import { z } from "zod";
 
 const formSchema = z.object({
   name: z.string().nonempty("Category Name is required"),
-  type: z.enum(["regular", "earnings"], { required_error: "Type is required" }),
+  type: z.enum(["regular", "earnings"], { required_error: "Type is required" }).optional(),
   charging_unit: z.string().optional(),
   icon: z.string().optional(),
 })

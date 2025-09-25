@@ -30,7 +30,7 @@ const Booking = () => {
     <div className="pb-10">
       <Header />
       <div className="sticky top-20 bg-white py-2 z-10">
-        <Breadcrumb page={booking?.listing.property.header} />
+        <Breadcrumb page={booking?.listing.service.header} />
       </div>
 
       {isLoading && (
@@ -142,10 +142,10 @@ const Booking = () => {
                     alt="Property"
                   />
                   <AvatarFallback>
-                    {booking.listing.property.header.charAt(0)}
+                    {booking.listing.service.header.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
-                <span>{booking.listing.property.header}</span>
+                <span>{booking.listing.service.header}</span>
               </span>
             </div>
 
@@ -160,10 +160,10 @@ const Booking = () => {
                       alt="Property"
                     />
                     <AvatarFallback>
-                      {booking.listing.property.header.charAt(0)}
+                      {booking.listing.service.header.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
-                  <span>{booking.listing.property.header}</span>
+                  <span>{booking.listing.service.header}</span>
                 </span>
               </div>
               <SummaryCardLine

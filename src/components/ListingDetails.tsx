@@ -25,7 +25,7 @@ const ListingDetails: React.FC<{ listing: Listing }> = (handler) => {
   )
 
   const [descLang, setDescLang] = useState<"en" | "hr">(
-    listing?.property.description_hr ? "hr" : "en"
+    listing?.service.description_hr ? "hr" : "en"
   )
 
   return (
@@ -59,7 +59,7 @@ const ListingDetails: React.FC<{ listing: Listing }> = (handler) => {
       </div>
       <div className="flex flex-col gap-2">
         <div className="text-3xl font-semibold text-start text-base-black flex items-center gap-5">
-          {listing?.property.header}
+          {listing?.service.header}
         </div>
       </div>
       <div className="flex items-center justify-between">
@@ -124,12 +124,12 @@ const ListingDetails: React.FC<{ listing: Listing }> = (handler) => {
                   Languages <ChevronDown className="size-3" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  {listing.property.description_en && (
+                  {listing.service.description_en && (
                     <DropdownMenuItem onClick={() => setDescLang("en")}>
                       English
                     </DropdownMenuItem>
                   )}
-                  {listing.property.description_hr && (
+                  {listing.service.description_hr && (
                     <DropdownMenuItem onClick={() => setDescLang("hr")}>
                       Croatian
                     </DropdownMenuItem>
@@ -141,12 +141,12 @@ const ListingDetails: React.FC<{ listing: Listing }> = (handler) => {
 
           <TabsContent value="en">
             <p className="text-xs font-normal text-neutral-500 mb-2.5">
-              {listing.property.description_en}
+              {listing.service.description_en}
             </p>
           </TabsContent>
           <TabsContent value="hr">
             <p className="text-xs font-normal text-neutral-500 mb-2.5">
-              {listing.property.description_hr}
+              {listing.service.description_hr}
             </p>
           </TabsContent>
         </Tabs>

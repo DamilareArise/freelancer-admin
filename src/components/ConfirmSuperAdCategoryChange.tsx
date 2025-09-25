@@ -36,7 +36,7 @@ const ConfirmSuperAdCategoryChange = ({
       dispatch(
         openAlertDialog({
           title: "Update Successful",
-          desc: `You've successfully updated ${listing.property.header} Super Ad Subscription to ${superAd?.tier} (${superAd?.title})`,
+          desc: `You've successfully updated ${listing.service.header} Super Ad Subscription to ${superAd?.tier} (${superAd?.title})`,
         })
       )
       if (setListing) setListing(null)
@@ -60,7 +60,7 @@ const ConfirmSuperAdCategoryChange = ({
         <AlertD.AlertDialogDescription>
           You are about to update{" "}
           <span className="font-medium text-neutral-800">
-            {listing.property.header}
+            {listing.service.header}
           </span>{" "}
           listing from{" "}
           <span className="font-medium text-neutral-800">

@@ -111,7 +111,7 @@ const SuperAdListing = () => {
 
     if (!error) {
       toast.success("Deletion Successful", {
-        description: `You have successfully take down Super Ad for ${listing?.property.header} listing`,
+        description: `You have successfully take down Super Ad for ${listing?.service.header} listing`,
         duration: 5000,
       })
       navigate("/admin/ads/super")
@@ -157,7 +157,7 @@ const SuperAdListing = () => {
       <Header />
       {!isFetching && listing && (
         <>
-          <Breadcrumb page={listing.property.header} />
+          <Breadcrumb page={listing.service.header} />
           <Tabs value={currentTab} onValueChange={setCurrentTab}>
             <div className="flex items-center justify-between gap-3 flex-wrap border-b pb-2 mb-2">
               <TabsList className="capitalize">
@@ -320,7 +320,7 @@ const AdsInfo = ({ listing }: { listing: Listing }) => {
                   <div className="bg-neutral-100 size-6 rounded-full"></div>
                 )}
                 <span className="font-medium text-sm">
-                  {listing.property.header}
+                  {listing.service.header}
                 </span>
               </span>
             </div>
@@ -378,7 +378,7 @@ const AdsInfo = ({ listing }: { listing: Listing }) => {
                     <div className="bg-neutral-100 size-6 rounded-full"></div>
                   )}
                   <span className="font-medium text-sm">
-                    {listing.property.header}
+                    {listing.service.header}
                   </span>
                 </span>
               </div>

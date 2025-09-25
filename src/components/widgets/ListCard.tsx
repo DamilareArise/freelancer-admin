@@ -85,14 +85,14 @@ const ListCard = ({
         <div>
           <div className="flex items-center justify-between gap-3">
             <h3 className="text-neutral-1000 truncate font-semibold">
-              {listing.property.header}
+              {listing.service.header}
             </h3>
             {listing.super_ad && superAd && (
               <MemoCrownStar style={{ color: superAd.color }} />
             )}
           </div>
           <p className="text-xs text-neutral-700 line-clamp-2">
-            {listing.property.description_en}
+            {listing.service.description_en}
           </p>
         </div>
         <p className="flex gap-1 mt-auto text-neutral-500 text-xs">
