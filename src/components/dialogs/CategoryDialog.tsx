@@ -63,21 +63,34 @@ const CategoryDialog = (props: CategoryDialogProps) => {
             <DialogDescription></DialogDescription>
           </DialogHeader>
           <div className="space-y-4 px-5 pt-3">
-            <FormField
-              control={handler.form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem className=" flex flex-col">
-                  <FormLabel className="text-lg font-medium text-black">
-                    Category Name
-                  </FormLabel>
-                  <FormControl>
-                    <Input placeholder="Type in Category Name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={handler.form.control}
+                name="name_en"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Category Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Category Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={handler.form.control}
+                name="name_hr"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Name (In Croatia)</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Category Name (Croatia)" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             {/* <FormField
               control={handler.form.control}
@@ -379,21 +392,35 @@ const CategoryDialog = (props: CategoryDialogProps) => {
                                     >
                                       <X className="size-4 text-destructive" />
                                     </button>
-                                    <Input
-                                      value={each.name}
-                                      onChange={(event) =>
-                                        handler.handleSubCatChange({
-                                          // key: "name",
-                                          value: event.target.value,
-                                          fieldId: each.id,
-                                        })
-                                      }
-                                      placeholder="Name"
-                                    />
+                                    <div className="grid-cols-2 grid gap-4">
+                                      <Input
+                                        value={each.name_en}
+                                        onChange={(event) =>
+                                          handler.handleSubCatChange({
+                                            key: "name_en",
+                                            value: event.target.value,
+                                            fieldId: each.id,
+                                          })
+                                        }
+                                        placeholder="Name in English"
+                                      />
+                                      <Input
+                                        value={each.name_hr}
+                                        onChange={(event) =>
+                                          handler.handleSubCatChange({
+                                            key: "name_hr",
+                                            value: event.target.value,
+                                            fieldId: each.id,
+                                          })
+                                        }
+                                        placeholder="Name in Croatia"
+                                      />
+                                    </div>
                                   </div>
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
+
                               {/* 
                             <div className="col-span-full px-4 mt-1 ">
                               <Separator className="bg-neutral-200" />
@@ -467,7 +494,7 @@ const SortableField = ({
               isDragging ? "cursor-grabbing" : "cursor-grab"
             )}
           />
-          {each.label}
+          {each.label_en} | {each.label_hr}
           <button
             onClick={(e) => {
               console.log(each)
@@ -483,23 +510,42 @@ const SortableField = ({
         </span>
       </Acc.AccordionTrigger>
       <Acc.AccordionContent className="p-4 bg-white flex flex-col gap-6">
-        <FormItem>
-          <FormLabel>Label</FormLabel>
-          <FormControl>
-            <Input
-              value={each.label}
-              onChange={(event) =>
-                handler.handleFeatureFieldChange({
-                  key: "label",
-                  value: event.target.value,
-                  fieldId: each.id,
-                })
-              }
-              placeholder="Label"
-            />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
+        <div className="grid grid-cols-2 gap-4">
+          <FormItem>
+            <FormLabel>Label</FormLabel>
+            <FormControl>
+              <Input
+                value={each.label_en}
+                onChange={(event) =>
+                  handler.handleFeatureFieldChange({
+                    key: "label_en",
+                    value: event.target.value,
+                    fieldId: each.id,
+                  })
+                }
+                placeholder="Label"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+          <FormItem>
+            <FormLabel>Label in Croatia</FormLabel>
+            <FormControl>
+              <Input
+                value={each.label_hr}
+                onChange={(event) =>
+                  handler.handleFeatureFieldChange({
+                    key: "label_hr",
+                    value: event.target.value,
+                    fieldId: each.id,
+                  })
+                }
+                placeholder="Label In Croatia"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        </div>
 
         <FormItem>
           <FormLabel>Requirement</FormLabel>

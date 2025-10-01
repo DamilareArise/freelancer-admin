@@ -11,7 +11,8 @@ import { AnyObject } from "yup";
 import { z } from "zod";
 
 const formSchema = z.object({
-  name: z.string().nonempty("Category Name is required"),
+  name_en: z.string().nonempty("Category Name is required"),
+  name_hr: z.string().optional(),
   type: z.enum(["regular", "earnings"], { required_error: "Type is required" }).optional(),
   charging_unit: z.string().optional(),
   icon: z.string().optional(),
@@ -25,7 +26,7 @@ const formSchema = z.object({
 // )
 
 const defaultField: CreateCategoryFeatures = {
-  label: "Field 1",
+  // label: "Field 1",
   label_en: "Field 1",
   label_hr: "Field 1",
   id: "field1",
@@ -44,8 +45,8 @@ const defaultPricing: CreateCategoryPricing[] = [
 ]
 
 const defaultSubcategories: CreateSubCategories[] = [
-  { name: "", id: "subcategory1", action: "new" },
-  { name: "", id: "subcategory2", action: "new" }
+  { name_en: "", name_hr: "", id: "subcategory1", action: "new" },
+  { name_en: "", name_hr: "", id: "subcategory2", action: "new" }
 ]
 
 
@@ -62,7 +63,7 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "", icon: "", type: "regular"
+      name_en: "", name_hr: "", icon: "", type: "regular"
     }
   })
 
@@ -71,13 +72,15 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
       form.reset(
         // { name: category?.name }
       )
-      form.setValue("name", category?.name || "");
+      form.setValue("name_en", category?.name_en || "");
+      form.setValue("name_hr", category?.name_hr || "");
       setFeaturesField([defaultField])
       setCategoryPricing(defaultPricing)
       setSubcategories(defaultSubcategories)
       close();
     } else if (open && category) {
-      form.setValue("name", copying ? `${category.name} Copy` : category.name, { shouldValidate: true });
+      form.setValue("name_en", copying ? `${category.name_en} Copy` : category.name_en, { shouldValidate: true });
+      form.setValue("name_hr", copying ? `${category.name_hr} Copy` : category.name_hr || "", { shouldValidate: true });
       form.setValue("icon", category.icon || undefined, { shouldValidate: true });
       form.setValue("type", category.type || undefined, { shouldValidate: true });
       form.setValue("charging_unit", category.charging_unit || undefined, { shouldValidate: true });
@@ -101,7 +104,7 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
       )
 
       const fields: CreateCategoryFeatures[] = category.category_features[0] ? category.category_features.map((each, i) => ({
-        label: each.label,
+        // label: each.label,
         label_hr: each.label_hr,
         label_en: each.label_en,
         id: `field${i}`,
@@ -139,7 +142,7 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
       ...featuresField,
       {
         ...defaultField,
-        label: `Field ${featuresField.length + 1}`,
+        label_en: `Field ${featuresField.length + 1}`,
         id, rank: featuresField.length + 1
       },
     ])
@@ -179,24 +182,24 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
 
 
   const handleSubCatChange = ({
-    // key,
+    key,
     fieldId,
     value,
   }: {
     fieldId: string
     value: string
     // value: string | number | string[] | object[]
-    // key: keyof (typeof defaultPricing)[0]
+    key: keyof typeof defaultSubcategories[0]
   }) => {
     setSubcategories((_) =>
-      _.map((cat) => (cat.id == fieldId ? { ...cat, name: value } : cat))
-      // _.map((cat) => (cat.id == fieldId ? { ...cat, [key]: value } : _f))
+      // _.map((cat) => (cat.id == fieldId ? { ...cat, name: value } : cat))
+      _.map((cat) => (cat.id == fieldId ? { ...cat, [key]: value } : cat))
     )
   }
 
   const addSubCategory = () => {
     const id = `subcategory${subcategories.length + 1}`
-    setSubcategories((subs) => [{ name: "", id, action: "new" }, ...subs]);
+    setSubcategories((subs) => [{ name_en: "", name_hr: "", id, action: "new" }, ...subs]);
   }
 
 
@@ -230,8 +233,10 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
       subcategories: subcategories
         .map(each => ({
           ...each,
-          name: each.name || "To Be Deleteed",
-          action: each.name ? each.action : "delete",
+          name_en: each.name_en || "To Be Deleteed",
+          name_hr: each.name_hr,
+          name: undefined,
+          action: each.name_en ? each.action : "delete",
           id: each.saveId as unknown as string,
         }))
         .filter(each => each.action == "delete" ? each.saveId : true),
@@ -253,11 +258,13 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
         duration: each.duration,
         price: each.price
       })),
-      subcategories: subcategories.filter(each => each.name).map(each => ({
-        name: each.name
+      subcategories: subcategories.filter(each => each.name_en).map(each => ({
+        name_en: each.name_en,
+        name_hr: each.name_hr,
+        name: undefined
       })),
       category_features: featuresField.map((each) => ({
-        label: each.label,
+        // label: each.label,
         label_hr: each.label_hr,
         label_en: each.label_en,
         options: each.options?.filter((option) => option),

@@ -1,6 +1,6 @@
 import { categoryIcons } from "@/lib/constants"
 
-export type CreateCategory = Pick<Category, "name"> & {
+export type CreateCategory = Pick<Category, "name_en" | "name_hr"> & {
 	category_features: Omit<CreateCategoryFeatures, 'id' | 'action'>[],
 	category_pricing: Omit<CreateCategoryPricing, 'id' | 'action'>[],
 	subcategories: Omit<CreateSubCategories, 'id' | 'action'>[],
@@ -8,7 +8,7 @@ export type CreateCategory = Pick<Category, "name"> & {
 
 export type ChildActionType = "delete" | "update" | "new";
 
-export type CreateCategoryFeatures = Omit<CategoryFeature, "id" | "category" | "created_by"> & {
+export type CreateCategoryFeatures = Omit<CategoryFeature, "label" | "id" | "category" | "created_by"> & {
 	id: string,
 	rank: number,
 	action: ChildActionType,
@@ -19,7 +19,7 @@ export type CreateCategoryPricing = Pick<CategoryPricing, "price" | "discount"> 
 	id: string, duration: number | null,
 	saveId?: CategoryPricing['id']
 }
-export type CreateSubCategories = Pick<SubCategories, "name"> & {
+export type CreateSubCategories = Pick<SubCategories, "name_en" | "name_hr"> & {
 	action: ChildActionType,
 	id: string,
 	saveId?: SubCategories['id']
@@ -34,6 +34,8 @@ export interface Category {
 	icon: (keyof typeof categoryIcons) | null;
 	updated_by: null;
 	name: string;
+	name_en: string;
+	name_hr?: string;
 	type: "regular" | "earnings";
 	charging_unit: string | null;
 	checked: boolean;
@@ -67,7 +69,9 @@ export interface CategoryPricing {
 
 export interface SubCategories {
 	id: number;
+	name_en: string;
 	name: string;
+	name_hr: string;
 }
 
 
