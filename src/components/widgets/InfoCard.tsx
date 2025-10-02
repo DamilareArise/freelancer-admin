@@ -14,7 +14,7 @@ export interface InfoCardProps {
 
 const InfoCard: React.FC<InfoCardProps> = ({
   rate,
-  value,
+  value = 0,
   title,
   isAmount,
   rateDesc = "from last month",
