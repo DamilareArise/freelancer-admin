@@ -28,6 +28,8 @@ import SupportMessaging from "./routes/admin/Messages"
 import PaymentSettings from "./routes/admin/financials/settings/PaymentSettings"
 import PaymentChargesSettings from "./routes/admin/financials/settings/PaymentChargesSettings"
 import ServicePayments from "./routes/admin/financials/PaymentProcessing/ServicePayments"
+import NotificationIndex from "./routes/admin/notifications/Index"
+import AppNotification from "./routes/admin/notifications/AppNotifications"
 
 const Security = lazy(() => import("./routes/admin/settings/Security"))
 const Users = lazy(() => import("./routes/admin/Users"))
@@ -386,6 +388,29 @@ function App() {
                     key={"permission"}
                     path="permissions"
                     Component={Permissions}
+                  />,
+                ]}
+              />,
+
+              <Route
+                key={"notifications"}
+                path="notifications"
+                Component={NotificationIndex}
+                children={[
+                  <Route
+                    key={"noti-default"}
+                    path=""
+                    element={<Navigate to={"app"} />}
+                  />,
+                  <Route
+                    key={"app-notification"}
+                    path="app"
+                    Component={AppNotification}
+                  />,
+                  <Route
+                    key={"email-template"}
+                    path="email-template"
+                    Component={Profile}
                   />,
                 ]}
               />,

@@ -19,7 +19,7 @@ export const BURL = _BURL;
 export const appApi = createApi({
 	reducerPath: 'appApi',
 	refetchOnReconnect: true,
-	tagTypes: ["Admin", "User", "AdminUser", "Category", "Listing", "SuperAd", "FAQ", "Payment", "PaymentSetting", "Booking", "Conversation", "Chat", "Ticket", "Review"],
+	tagTypes: ["Admin", "User", "AdminUser", "Category", "Listing", "SuperAd", "FAQ", "Payment", "PaymentSetting", "Booking", "Conversation", "Chat", "Ticket", "Review", "Notification"],
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${BURL}/api/v1`,
 		prepareHeaders: (headers) => {

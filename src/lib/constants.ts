@@ -6,6 +6,7 @@ import MemoCheckCircle from "@/components/icons/CheckCircle";
 import MemoClock from "@/components/icons/Clock";
 import MemoFinancials from "@/components/icons/Financials";
 import MemoList from "@/components/icons/List";
+import MemoNotifications from "@/components/icons/Notifications";
 import MemoOverview from "@/components/icons/Overview";
 import MemoReport from "@/components/icons/Report";
 import MemoSupport from "@/components/icons/Support";
@@ -91,6 +92,7 @@ export const adminNavLinks = [
 		]
 	},
 	{ key: "Admin", label: "Admin Management", icon: MemoAdminManage, path: "/admin/admins" },
+	{ key: "Notification", label: "Notifications", icon: MemoNotifications, path: "/admin/notifications" },
 ]
 
 
