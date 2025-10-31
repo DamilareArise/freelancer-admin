@@ -323,10 +323,10 @@ export const demoImage = "https://avatar.iran.liara.run/public";
 
 
 
-const categoryIconImages = import.meta.glob("../assets/categories-svgs/*.svg", { eager: true }) as Record<string, { default: string }>;
+const categoryIconImages = import.meta.glob("../assets/categories-icons/*.png", { eager: true }) as Record<string, { default: string }>;
 
 export const categoryIcons: Record<string, { url: string }> = Object.keys(categoryIconImages).reduce((acc, path) => {
-	const key = path.split("/").pop()?.replace(".svg", "") || ""; // Extract filename without extension
+	const key = path.split("/").pop()?.replace(".png", "") || ""; // Extract filename without extension
 	acc[key] = { url: categoryIconImages[path].default }
 	return acc;
 }, {} as Record<string, { url: string }>);
