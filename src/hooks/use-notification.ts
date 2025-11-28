@@ -14,8 +14,13 @@ const formSchema = z.object({
   body: z.string().nonempty("Body is required"),
   types: z.array(z.string()).min(1, "Select at least one notification type"),
   recipients: z.array(z.string()).min(1, "Select at least one Recipient"),
-  timing: z.string().nonempty(),
+  // trigger_type can only be immediate, recurring, custom
+  trigger_type: z.enum(["immediately", "recurring", "custom"]),
+  recurring_frequency: z.enum(["daily", "weekly", "monthly"]),
   date: z.date().optional(),
+  recurring_start: z.date().optional(),
+  recurring_end: z.date().optional(),
+  recurring_interval: z.number().optional(),
   time: z.string().optional(),
   day: z.string().optional(),
 })
@@ -24,7 +29,7 @@ export type NotificationForm = z.infer<typeof formSchema>;
 
 const defaultForm: NotificationForm = {
   header: "", category: "", body: "", types: [],
-  recipients: [], timing: ""
+  recipients: [], trigger_type: "recurring", recurring_frequency: "monthly"
 }
 
 export const useNotificationDialog = ({ open, notification, close }: NotificationDialogProps) => {
@@ -36,6 +41,8 @@ export const useNotificationDialog = ({ open, notification, close }: Notificatio
     resolver: zodResolver(formSchema),
     defaultValues: defaultForm
   })
+
+  const watch = form.watch();
 
   useEffect(() => {
     if (!open) {
@@ -49,12 +56,70 @@ export const useNotificationDialog = ({ open, notification, close }: Notificatio
     }
   }, [open, notification, form])
 
+  // useEffect(() => {
+  //   if (watch.recurring_frequency === 'monthly') {
+  //     form.setValue('day', '1', { shouldValidate: true });
+  //     form.setValue('time', undefined, { shouldValidate: true });
+  //   } else if (watch.recurring_frequency === 'weekly') {
+  //     form.setValue('day', 'Monday', { shouldValidate: true });
+  //     form.setValue('time', undefined, { shouldValidate: true });
+  //   } else if (watch.recurring_frequency === 'daily') {
+  //     form.setValue('day', undefined, { shouldValidate: true });
+  //     form.setValue('time', '09:00', { shouldValidate: true });
+  //   }
+  // }, [form, watch.recurring_frequency])
+
   const onSubmit = async (values: NotificationForm) => {
+    if (watch.trigger_type == 'immediately') {
+      values.recurring_frequency = 'daily';
+      values.time = undefined;
+      values.recurring_start = undefined;
+      values.recurring_end = undefined;
+      values.recurring_interval = undefined;
+      values.date = undefined;
+    }
+
+    if (watch.trigger_type == 'custom') {
+      values.recurring_frequency = 'daily';
+      values.recurring_end = undefined;
+      values.recurring_start = undefined
+      values.recurring_interval = 0;
+    }
+
+    if (watch.trigger_type == 'recurring') {
+      // add values.time to values.reccuring_start and values.recurring_end date;
+      values.recurring_start = values.recurring_start ? new Date(
+        new Date(values.recurring_start).setHours(
+          parseInt(values.time?.split(":")[0] || "0"),
+          parseInt(values.time?.split(":")[1] || "0"),
+          0,
+          0
+        )
+      ) : undefined;
+      values.recurring_end = values.recurring_end ? new Date(
+        new Date(values.recurring_end).setHours(
+          parseInt(values.time?.split(":")[0] || "0"),
+          parseInt(values.time?.split(":")[1] || "0"),
+          0,
+          0
+        )
+      ) : undefined;
+      values.date = undefined;
+      values.time = undefined;
+      // values.recurring_interval = {
+      //   daily: 86400,
+      //   weekly: 604800,
+      //   monthly: 2592000
+      // }[values.recurring_frequency];
+    }
+
+
     const { data, error }: AnyObject = await (notification ? updateNotification({
       ...values,
       id: notification.id,
     }) : addNotification({
       ...values,
+      date: values?.date ? new Date(values.date).toISOString().split('T')[0] : undefined,
     }))
 
     if (data) {
@@ -72,7 +137,7 @@ export const useNotificationDialog = ({ open, notification, close }: Notificatio
   }
 
   return {
-    onSubmit, form,
+    onSubmit, form, watch,
     isSaving: isCreatingNotification || isUpdatingNotification,
     roles, isFetchingRoles
   }

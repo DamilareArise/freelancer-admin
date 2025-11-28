@@ -6,23 +6,21 @@ import { Notification } from "@/types/notification.type"
 export const notificationApi = appApi.injectEndpoints({
 	endpoints: (build) => ({
 		addNotification: build.mutation({
-			query: (body) => ({ url: 'notification/handle-notification/', body, method: "POST" }),
+			query: (body) => ({ url: 'notify/templates/', body, method: "POST" }),
 			transformErrorResponse: transformValidationResponse,
 			invalidatesTags: ["Notification"]
 		}),
 		getNotifications: build.query<ListResponse<Notification>, ListRequest>({
-
-			query: (params) => ({ url: 'all-user/notification/', params }),
-
+			query: (params) => ({ url: 'notify/templates/', params }),
 			providesTags: ["Notification"]
 		}),
 		updateNotification: build.mutation({
-			query: (body) => ({ url: `/notification/handle-notification/${body.id}/`, body, method: "PUT" }),
+			query: (body) => ({ url: `/notify/templates/${body.id}/`, body, method: "PUT" }),
 			transformErrorResponse: transformValidationResponse,
 			invalidatesTags: ["Notification"]
 		}),
 		deleteNotification: build.mutation({
-			query: (id) => ({ url: `notification/handle-notification/${id}/`, method: "DELETE" }),
+			query: (id) => ({ url: `notify/templates/${id}/`, method: "DELETE" }),
 			transformErrorResponse: transformValidationResponse,
 			invalidatesTags: ["Notification"]
 

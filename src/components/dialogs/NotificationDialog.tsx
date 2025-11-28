@@ -31,6 +31,7 @@ import DateInput from "../widgets/DateInput"
 const NotificationDialog = (props: NotificationDialogProps) => {
   const notification = props.notification
   const handler = useNotificationDialog(props)
+  const { trigger_type } = handler.watch
 
   return (
     <Dialog
@@ -120,81 +121,171 @@ const NotificationDialog = (props: NotificationDialogProps) => {
                 )}
               />
 
-              <FormField
-                control={handler.form.control}
-                name="timing"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col flex-1">
-                    <FormLabel>Timing</FormLabel>
-                    <Sel.Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <Sel.SelectTrigger>
-                          <Sel.SelectValue placeholder="Select Timing" />
-                        </Sel.SelectTrigger>
-                      </FormControl>
-                      <Sel.SelectContent>
-                        {[
-                          { label: "Send Immediately", value: "immediate" },
-                          { label: "Recurring", value: "recurring" },
-                          { label: "Custom Date & Time", value: "custom" },
-                        ].map(({ value, label }) => (
-                          <Sel.SelectItem value={value} key={value}>
-                            {label}
-                          </Sel.SelectItem>
-                        ))}
-                      </Sel.SelectContent>
-                    </Sel.Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               <div className="flex items-center gap-4">
                 <FormField
                   control={handler.form.control}
-                  name="date"
+                  name="trigger_type"
                   render={({ field }) => (
-                    <FormItem className="flex-1 flex flex-col">
-                      <FormLabel className="font-medium text-neutral-800">
-                        Date
-                      </FormLabel>
-                      <FormControl>
-                        <DateInput
-                          buttonClass="h-11"
-                          min={new Date()}
-                          date={field.value}
-                          setDate={(date) => {
-                            field.onChange(date)
-                          }}
-                        />
-                      </FormControl>
+                    <FormItem className="flex flex-col flex-1">
+                      <FormLabel>Timing</FormLabel>
+                      <Sel.Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <Sel.SelectTrigger>
+                            <Sel.SelectValue placeholder="Select Timing" />
+                          </Sel.SelectTrigger>
+                        </FormControl>
+                        <Sel.SelectContent>
+                          {[
+                            { label: "Send Immediately", value: "immediately" },
+                            { label: "Recurring", value: "recurring" },
+                            { label: "Custom Date & Time", value: "custom" },
+                          ].map(({ value, label }) => (
+                            <Sel.SelectItem value={value} key={value}>
+                              {label}
+                            </Sel.SelectItem>
+                          ))}
+                        </Sel.SelectContent>
+                      </Sel.Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={handler.form.control}
-                  name="time"
-                  render={({ field }) => (
-                    <FormItem className="flex-1 flex flex-col">
-                      <FormLabel className="font-medium text-neutral-800">
-                        Time
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          type="time"
-                          className="accent-primary"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+
+                {trigger_type == "recurring" && (
+                  <FormField
+                    control={handler.form.control}
+                    name="recurring_frequency"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col flex-1">
+                        <FormLabel>Frequency</FormLabel>
+                        <Sel.Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <Sel.SelectTrigger>
+                              <Sel.SelectValue placeholder="Select Frequency" />
+                            </Sel.SelectTrigger>
+                          </FormControl>
+                          <Sel.SelectContent>
+                            {[
+                              { label: "Daily", value: "daily" },
+                              { label: "Weekly", value: "weekly" },
+                              { label: "Monthly", value: "monthly" },
+                            ].map(({ value, label }) => (
+                              <Sel.SelectItem value={value} key={value}>
+                                {label}
+                              </Sel.SelectItem>
+                            ))}
+                          </Sel.SelectContent>
+                        </Sel.Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
               </div>
+
+              {trigger_type != "immediately" && (
+                <div className="flex flex-wrap items-center gap-4">
+                  {trigger_type == "custom" && (
+                    <FormField
+                      control={handler.form.control}
+                      name="date"
+                      render={({ field }) => (
+                        <FormItem className="flex-1 flex flex-col">
+                          <FormLabel className="font-medium text-neutral-800">
+                            Date
+                          </FormLabel>
+                          <FormControl>
+                            <DateInput
+                              buttonClass="h-11"
+                              min={new Date()}
+                              date={field.value}
+                              setDate={(date) => {
+                                field.onChange(date)
+                              }}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+
+                  {trigger_type != "custom" && (
+                    <FormField
+                      control={handler.form.control}
+                      name="recurring_start"
+                      render={({ field }) => (
+                        <FormItem className="flex-1 flex flex-col">
+                          <FormLabel className="font-medium text-neutral-800">
+                            Start Date
+                          </FormLabel>
+                          <FormControl>
+                            <DateInput
+                              buttonClass="h-11"
+                              min={new Date()}
+                              date={field.value}
+                              setDate={(date) => {
+                                field.onChange(date)
+                              }}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+
+                  {trigger_type == "recurring" && (
+                    <FormField
+                      control={handler.form.control}
+                      name="recurring_end"
+                      render={({ field }) => (
+                        <FormItem className="flex-1 flex flex-col">
+                          <FormLabel className="font-medium text-neutral-800">
+                            End Date
+                          </FormLabel>
+                          <FormControl>
+                            <DateInput
+                              buttonClass="h-11"
+                              min={new Date()}
+                              date={field.value}
+                              setDate={(date) => {
+                                field.onChange(date)
+                              }}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+                  <FormField
+                    control={handler.form.control}
+                    name="time"
+                    render={({ field }) => (
+                      <FormItem className="flex-1 flex flex-col">
+                        <FormLabel className="font-medium text-neutral-800">
+                          Time
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="time"
+                            className="accent-primary"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              )}
             </div>
           </form>
         </Form>
@@ -219,9 +310,9 @@ const NotificationTypeField = ({
         <div className="flex flex-row flex-wrap gap-4 items-center whitespace-nowrap">
           {[
             { title: "Email", value: "email" },
-            { title: "In App", value: "in-app" },
+            { title: "In App", value: "in_app" },
             { title: "Push Notification", value: "push" },
-            { title: "In-App Banner", value: "in-app-banner" },
+            { title: "In-App Banner", value: "in_app_banner" },
           ].map(({ title, value }) => (
             <Label
               key={value}

@@ -65,7 +65,8 @@ const AppNotification = () => {
               <th>Header</th>
               <th>Body</th>
               <th>Category</th>
-              <th></th>
+              <th>Trigger Type</th>
+              <th>Frequency</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -99,21 +100,8 @@ const AppNotification = () => {
                 <td>{each.header}</td>
                 <td>{each.body}</td>
                 <td>{each.category}</td>
-                <td className="min-w-40">
-                  {/* <span className="text-xs text-neutral-600">
-					{joinWords(each.user_roles.map((each) => each.label))}
-				  </span> */}
-                  {/* <DropdownMenu>
-					<DropdownMenuTrigger className="p-2 text-xs text-primary whitespace-nowrap flex gap-1 items-center">
-					  Finance Notification <ChevronDown className="size-3" />
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-					  <DropdownMenuItem>Super Notification</DropdownMenuItem>
-					  <DropdownMenuItem>Financial Notification</DropdownMenuItem>
-					  <DropdownMenuItem>Support Notification</DropdownMenuItem>
-					</DropdownMenuContent>
-				  </DropdownMenu> */}
-                </td>
+                <td className="capitalize">{each.trigger_type}</td>
+                <td className="capitalize">{each.recurring_frequency}</td>
                 <td>
                   <DropdownMenu>
                     <DropdownMenuTrigger className="flex size-8 items-center">
