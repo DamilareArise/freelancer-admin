@@ -14,7 +14,7 @@ const NotificationIndex = () => {
           link
           tabs={[
             { label: "App Notification", value: "app" },
-            { label: "Email Template", value: "email-template" },
+            // { label: "Email Template", value: "email-template" },
           ]}
         />
         <Outlet />
