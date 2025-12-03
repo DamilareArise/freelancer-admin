@@ -189,21 +189,21 @@ const Users: React.FC = () => {
                           noIcon
                           className="px-3 py-1 text-xs font-medium"
                         />
-                        {user.document ? (
-                          <StatusPill
-                            label={user.document_status}
-                            status={user.document_status}
-                            noIcon
-                            className="px-3 py-1 text-xs font-medium"
-                          />
-                        ) : (
-                          <StatusPill
-                            label={"No Document"}
-                            status={"muted"}
-                            noIcon
-                            className="px-3 py-1 text-xs font-medium"
-                          />
-                        )}
+
+                        <StatusPill
+                          label={
+                            user.document_status == "pending"
+                              ? "No Document"
+                              : user.document_status
+                          }
+                          status={
+                            user.document_status == "pending"
+                              ? "muted"
+                              : user.document_status
+                          }
+                          noIcon
+                          className="px-3 py-1 text-xs font-medium"
+                        />
                       </span>
                     </td>
                     <td className="menu-container">

@@ -115,7 +115,7 @@ const AppNotification = () => {
                         }}
                         className="text-destructive"
                       >
-                        <Trash2 /> Remove User
+                        <Trash2 /> Delete
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => {

@@ -198,6 +198,13 @@ export const statusMap
 		color: "#104BB9",
 		icon: ListCheck
 	},
+	"submitted": {
+		value: "opened",
+		label: "Opened",
+		bg: "#3871B21A",
+		color: "#104BB9",
+		icon: ListCheck
+	},
 	"confirmed": {
 		value: "confirmed",
 		label: "Confirmed",

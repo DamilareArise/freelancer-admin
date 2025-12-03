@@ -71,7 +71,7 @@ export const useNotificationDialog = ({ open, notification, close }: Notificatio
 
   const onSubmit = async (values: NotificationForm) => {
     if (watch.trigger_type == 'immediately') {
-      values.recurring_frequency = 'daily';
+      values.recurring_frequency = undefined;
       values.time = undefined;
       values.recurring_start = undefined;
       values.recurring_end = undefined;

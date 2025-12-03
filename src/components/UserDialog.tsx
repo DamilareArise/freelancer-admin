@@ -848,14 +848,6 @@ const VerificationDetails = ({
       </DialogHeader>
 
       <div className="flex flex-col gap-2 mt-2 text-sm">
-        <div className="flex items-center justify-between">
-          <span className="font-medium">OIB</span>
-          <span className="text-neutral-600">{user.oib ?? "--"}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="font-medium">VAT NO</span>
-          <span className="text-neutral-600">{user.vat ?? "--"}</span>
-        </div>
         {user.selfie && (
           <div className="mb-2">
             <div className="flex items-center justify-between">
@@ -877,13 +869,12 @@ const VerificationDetails = ({
         />
 
         <DocumentViewer
-          open
           document={user.document_front}
           title={`${documentTypeTitle} (Back)`}
           containerWidth={containerWidth}
         />
 
-        <DocumentViewer
+        {/* <DocumentViewer
           document={user.business_reg}
           title={`Business Registration`}
           containerWidth={containerWidth}
@@ -893,12 +884,12 @@ const VerificationDetails = ({
           document={user.auth_letter}
           title={`Authorization Letter`}
           containerWidth={containerWidth}
-        />
+        /> */}
 
         {/* <FileTile name="Business Registration" />
         <FileTile name="Authorization Letter" /> */}
 
-        {user.document_status == "pending" && (
+        {user.document_status == "submitted" && (
           <div className="flex items-center gap-2 mt-4">
             <Button
               onClick={() => handler.setConfirmRejectionIsOpen(true)}
