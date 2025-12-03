@@ -98,7 +98,7 @@ const AppNotification = () => {
             {notifications.map((each) => (
               <tr className="tbody-row" key={each.id}>
                 <td>{each.header}</td>
-                <td>{each.body}</td>
+                <td className="line-clamp-2 min-w-[20rem]">{each.body}</td>
                 <td>{each.category}</td>
                 <td className="capitalize">{each.trigger_type}</td>
                 <td className="capitalize">{each.recurring_frequency}</td>

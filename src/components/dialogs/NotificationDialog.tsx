@@ -31,7 +31,7 @@ import DateInput from "../widgets/DateInput"
 const NotificationDialog = (props: NotificationDialogProps) => {
   const notification = props.notification
   const handler = useNotificationDialog(props)
-  const { trigger_type } = handler.watch
+  const { trigger_type, recurring_start } = handler.watch
 
   return (
     <Dialog
@@ -51,7 +51,7 @@ const NotificationDialog = (props: NotificationDialogProps) => {
                   {notification ? "Update" : "Create"} Notification
                 </div>
                 <Button
-                  disabled={!handler.form.formState.isValid}
+                  // disabled={!handler.form.formState.isValid}
                   isLoading={handler.isSaving}
                   className="rounded-full"
                 >
@@ -61,6 +61,7 @@ const NotificationDialog = (props: NotificationDialogProps) => {
               <DialogDescription></DialogDescription>
             </DialogHeader>
             <div className="space-y-6 px-5 pt-3 pb-6">
+              {JSON.stringify(handler.form.formState.errors)}
               <FormField
                 control={handler.form.control}
                 name="types"
@@ -203,7 +204,7 @@ const NotificationDialog = (props: NotificationDialogProps) => {
                           <FormControl>
                             <DateInput
                               buttonClass="h-11"
-                              min={new Date()}
+                              min={new Date(new Date().toDateString())}
                               date={field.value}
                               setDate={(date) => {
                                 field.onChange(date)
@@ -228,7 +229,7 @@ const NotificationDialog = (props: NotificationDialogProps) => {
                           <FormControl>
                             <DateInput
                               buttonClass="h-11"
-                              min={new Date()}
+                              min={new Date(new Date().toDateString())}
                               date={field.value}
                               setDate={(date) => {
                                 field.onChange(date)
@@ -253,7 +254,12 @@ const NotificationDialog = (props: NotificationDialogProps) => {
                           <FormControl>
                             <DateInput
                               buttonClass="h-11"
-                              min={new Date()}
+                              min={
+                                new Date(
+                                  recurring_start?.toDateString() ||
+                                    new Date().toDateString()
+                                )
+                              }
                               date={field.value}
                               setDate={(date) => {
                                 field.onChange(date)
@@ -320,6 +326,7 @@ const NotificationTypeField = ({
               className="text-gray-700 text-[.8rem] flex items-center gap-2 cursor-pointer"
             >
               <Checkbox
+                checked={field.value.includes(value)}
                 onCheckedChange={(checked) => {
                   const newTypes = [...field.value]
                   if (checked) {
@@ -365,6 +372,7 @@ const RecipientField = ({
               className="text-gray-700 text-[.8rem] flex items-center gap-2 cursor-pointer"
             >
               <Checkbox
+                checked={field.value.includes(value)}
                 onCheckedChange={(checked) => {
                   const newTypes = [...field.value]
                   if (checked) {

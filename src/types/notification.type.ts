@@ -3,7 +3,7 @@
 export interface Notification {
 	id: number;
 	types: ("email" | "in_app" | "push" | "in_app_banner" | "canceled")[],
-	recipents: ("user" | "service_provider")[]
+	recipients: ("user" | "service_provider")[]
 	category: string
 	header: string
 	created_at: string

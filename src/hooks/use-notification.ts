@@ -28,8 +28,10 @@ const formSchema = z.object({
 export type NotificationForm = z.infer<typeof formSchema>;
 
 const defaultForm: NotificationForm = {
-  header: "", category: "", body: "", types: [],
-  recipients: [], trigger_type: "recurring", recurring_frequency: "monthly"
+  header: "", category: "",
+  body: "", types: [],
+  recipients: [], trigger_type: "recurring",
+  recurring_frequency: "monthly"
 }
 
 export const useNotificationDialog = ({ open, notification, close }: NotificationDialogProps) => {
@@ -52,7 +54,20 @@ export const useNotificationDialog = ({ open, notification, close }: Notificatio
       form.setValue("category", notification.category, { shouldValidate: true });
       form.setValue("body", notification.body, { shouldValidate: true });
       form.setValue("types", notification.types, { shouldValidate: true });
-      form.setValue("recipients", notification.recipents, { shouldValidate: true });
+      form.setValue("recipients", notification.recipients, { shouldValidate: true });
+      form.setValue("trigger_type", notification.trigger_type, { shouldValidate: true });
+      form.setValue("recurring_start", notification.recurring_start ? new Date(notification.recurring_start) : undefined, { shouldValidate: true });
+      form.setValue("recurring_frequency", notification.recurring_frequency || undefined, { shouldValidate: true });
+      form.setValue("recurring_start", notification.recurring_start ? new Date(notification.recurring_start) : undefined, { shouldValidate: true });
+      form.setValue("recurring_end", notification.recurring_end ? new Date(notification.recurring_end) : undefined, { shouldValidate: true });
+      form.setValue("recurring_interval", notification.recurring_interval || undefined, { shouldValidate: true });
+      form.setValue("date", notification.date ? new Date(notification.date) : undefined, { shouldValidate: true });
+      form.setValue(
+        "time",
+        notification.time ? new Date(notification.time).toTimeString() : notification.recurring_start
+          ? new Date(notification.recurring_start).toLocaleTimeString() : undefined,
+        { shouldValidate: true }
+      );
     }
   }, [open, notification, form])
 
