@@ -16,7 +16,7 @@ const formSchema = z.object({
   recipients: z.array(z.string()).min(1, "Select at least one Recipient"),
   // trigger_type can only be immediate, recurring, custom
   trigger_type: z.enum(["immediately", "recurring", "custom"]),
-  recurring_frequency: z.enum(["daily", "weekly", "monthly"]),
+  recurring_frequency: z.enum(["daily", "weekly", "monthly"]).optional(),
   date: z.date().optional(),
   recurring_start: z.date().optional(),
   recurring_end: z.date().optional(),
