@@ -357,7 +357,7 @@ const RecipientField = ({
         <div className="flex flex-row flex-wrap gap-4 items-center whitespace-nowrap">
           {[
             { title: "User", value: "user" },
-            { title: "Service Providers", value: "service-provider" },
+            { title: "Service Providers", value: "service_provider" },
           ].map(({ title, value }) => (
             <Label
               key={value}

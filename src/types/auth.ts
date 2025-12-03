@@ -22,12 +22,14 @@ export interface UserData {
 	initial: string,
 	fullname: string,
 	user_roles: Role[],
-	document_status: "pending" | "rejected" | "verified",
+	document_status: "pending" | "rejected" | "verified" | "submitted",
 	document_type: keyof typeof documentSatusMap | null,
 	auth_letter: string | null,
 	business_reg: string | null,
 	selfie: string | null,
-	document: string | null
+	// document: string | null
+	document_front: string | null
+	document_back: string | null
 	vat: string | null
 	oib: string | null
 }

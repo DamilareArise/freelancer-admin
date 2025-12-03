@@ -269,21 +269,20 @@ const UserDialog = ({
                       <p className=" text-[#2B2928] font-[500] ">
                         Document Status
                       </p>
-                      {user.document ? (
-                        <StatusPill
-                          label={user.document_status}
-                          status={user.document_status}
-                          noIcon
-                          className="px-3 py-1 text-xs font-medium"
-                        />
-                      ) : (
-                        <StatusPill
-                          label={"No Document"}
-                          status={"muted"}
-                          noIcon
-                          className="px-3 py-1 text-xs font-medium"
-                        />
-                      )}
+                      <StatusPill
+                        label={
+                          user.document_status == "pending"
+                            ? "No Document"
+                            : user.document_status
+                        }
+                        status={
+                          user.document_status == "pending"
+                            ? "muted"
+                            : user.document_status
+                        }
+                        noIcon
+                        className="px-3 py-1 text-xs font-medium"
+                      />
                     </div>
                     <div className="flex justify-between items-center text-[12px] md:text-[16px] font-[500]">
                       <p className=" text-[#2B2928] font-[500] ">
@@ -830,6 +829,10 @@ const VerificationDetails = ({
     }
   }, [])
 
+  const documentTypeTitle = user.document_type
+    ? `${documentSatusMap[user.document_type].label}`
+    : `Document`
+
   return (
     <>
       <DialogHeader>
@@ -868,14 +871,15 @@ const VerificationDetails = ({
 
         <DocumentViewer
           open
-          document={user.document}
-          title={
-            user.document_type
-              ? `${user.fullname}'s ${
-                  documentSatusMap[user.document_type].label
-                }`
-              : `${user.fullname}'s Document`
-          }
+          document={user.document_front}
+          title={`${documentTypeTitle} (Front)`}
+          containerWidth={containerWidth}
+        />
+
+        <DocumentViewer
+          open
+          document={user.document_front}
+          title={`${documentTypeTitle} (Back)`}
           containerWidth={containerWidth}
         />
 
