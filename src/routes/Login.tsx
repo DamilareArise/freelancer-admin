@@ -10,7 +10,6 @@ import { useNavigate } from "react-router"
 import { Link, useSearchParams } from "react-router-dom"
 import { toast } from "sonner"
 import { z } from "zod"
-import loginbanner from "../assets/loginBanner.webp"
 
 const formSchema = z.object({
   email: z.string().email().nonempty("Email is required"),
@@ -61,29 +60,29 @@ const Login = () => {
 
   return (
     <div className="flex [&>div]:flex-1 h-screen fade">
-      <div className="p-10 h-full no-scrollbar overflow-auto">
+      <div className="p-10 h-full no-scrollbar overflow-auto w-full">
         <Form {...form}>
           <form
-            className="flex flex-col gap-10  max-w-xl mx-auto h-full"
+            className="flex flex-col items-center gap-10 p-5 w-full max-w-[27rem] mx-auto h-full"
             onSubmit={form.handleSubmit(onSubmit)}
           >
-            <h3 className="flex items-center font-semibold gap-2 font-poppins text-[1.4rem]">
-              <MemoLogo className="size-7 text-primary-400" />
+            <h3 className="flex items-center font-semibold gap-2 font-poppins text-4xl">
+              <MemoLogo className="size-10 text-primary-400" />
               Freelancer
             </h3>
-            <div className="flex flex-col gap-8 mt-[10%]">
-              <div>
-                <h3 className="text-2xl mb-2 font-semibold">
+            <div className="flex w-full items-center flex-col gap-8 mt-[10%]">
+              <div className="text-center flex flex-col items-center gap-2">
+                <h3 className="text-2xl font-semibold">
                   Login to your account
                 </h3>
-                <p className="text-neutral-600 text-sm max-w-md">
+                <p className="text-neutral-600 text-sm">
                   Effortlessly manage and control every aspect of your business
                   from a single, intuitive dashboard. Experience unmatched
                   flexibility and convenience—all in one place.
                 </p>
               </div>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex w-full flex-col gap-6">
                 <FormField
                   control={form.control}
                   name="email"
@@ -91,6 +90,7 @@ const Login = () => {
                     <FormItem>
                       <FloatingLabelInput
                         {...field}
+                        placeholder="myemail@gmail.com"
                         className="h-[3.38rem] shadow-none rounded-md"
                         id="emailfield"
                         label="Email"
@@ -138,46 +138,15 @@ const Login = () => {
                 </button>
               </div>
 
-              <p>
-                <Link
-                  className="text-primary font-semibold text-sm"
-                  to={"/forget-password"}
-                >
-                  Forget Password?
-                </Link>
-              </p>
+              <Link
+                className="text-neutral-600 text-sm"
+                to={"/forget-password"}
+              >
+                Forget Password?
+              </Link>
             </div>
           </form>
         </Form>
-      </div>
-      <div className="bg-primary-100 hidden p-10 md:flex overflow-hidden items-center justify-center relative">
-        <img
-          src={loginbanner}
-          alt="Login Banner"
-          className="w-full pointer-events-none relative z-10"
-        />
-        <div className="absolute inset-0 flex flex-col gap-20 ">
-          {Array(10)
-            .fill(null)
-            .map((_each, i) => (
-              <div
-                key={i + "logoRow"}
-                className="flex justify-between gap-3 px-10 even:px-0"
-              >
-                {Array(4)
-                  .fill(null)
-                  .map((_each, j) => (
-                    <h3
-                      key={j + "logoPatterm"}
-                      className="flex even:mt-20 items-center font-semibold gap-2 font-poppins text-[1.75rem]"
-                    >
-                      <MemoLogo className="size-8 opacity-50 text-primary-400" />
-                      <span className="opacity-10">Freelancer</span>
-                    </h3>
-                  ))}
-              </div>
-            ))}
-        </div>
       </div>
     </div>
   )
