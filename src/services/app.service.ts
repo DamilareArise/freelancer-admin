@@ -1,21 +1,9 @@
-// Need to use the React-specific entry point to import createApi
 import { AppLocation } from '@/types/ad.type';
 import { Role } from '@/types/type';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// const baseUrl = 'https://pokeapi.co/api/v2/';
+export const BURL = import.meta.env.VITE_API_URL;
 
-let _BURL;
-if (process.env.NODE_ENV === 'development') {
-	// _BURL = "https://6035-102-89-22-40.ngrok-free.app";
-	_BURL = "https://service.book-freelancer.com";
-} else {
-	_BURL = "https://service.book-freelancer.com";
-}
-
-export const BURL = _BURL;
-
-// Define a service using a base URL and expected endpoints
 export const appApi = createApi({
 	reducerPath: 'appApi',
 	refetchOnReconnect: true,
