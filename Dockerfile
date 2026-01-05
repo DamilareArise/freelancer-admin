@@ -4,6 +4,12 @@ FROM node:20-alpine AS build
 # Set working directory
 WORKDIR /app
 
+# Accept build argument from CapRover
+ARG VITE_API_URL
+
+# Expose it as an environment variable for Vite
+ENV VITE_API_URL=$VITE_API_URL
+
 # Copy package files
 COPY package*.json ./
 
@@ -13,7 +19,10 @@ RUN npm install --force
 # Copy source code
 COPY . .
 
-# Build the app (Vite will output to /dist)
+# (Optional) Debug — remove after confirming
+RUN echo "VITE_API_URL=$VITE_API_URL"
+
+# Build the app (Vite will read env vars here)
 RUN npm run build
 
 # ---- Production Stage ----
