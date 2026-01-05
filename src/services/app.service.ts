@@ -11,14 +11,10 @@ export const appApi = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${BURL}/api/v1`,
 		prepareHeaders: (headers) => {
-			// prepareHeaders: (headers, { getState }) => {
-			// Get the token from your state or wherever it's stored
 			const token = localStorage.getItem('token');
-			// const token = getState().auth.token;
 			if (token) {
 				headers.set('Authorization', `Bearer ${token}`);
 				headers.set('Accept', `application/json`);
-				// headers.set('ngrok-skip-browser-warning', `69420`);
 			}
 			return headers;
 		},
