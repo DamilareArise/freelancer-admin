@@ -168,7 +168,7 @@ const CategoryDialog = (props: CategoryDialogProps) => {
                               key={iconIndex + "icon"}
                             >
                               <img
-                                className="size-6"
+                                className="size-8"
                                 src={each.url}
                                 alt="Icon"
                               />
@@ -190,7 +190,10 @@ const CategoryDialog = (props: CategoryDialogProps) => {
                 <TabsTrigger value="subcategories">Sub Categories</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="pricing" className="flex flex-col gap-4 py-2">
+              <TabsContent
+                value="pricing"
+                className="flex flex-col gap-4 py-2 -mx-2"
+              >
                 <div className="pb-4">
                   <Acc.Accordion
                     value={"pricing"}

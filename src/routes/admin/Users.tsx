@@ -40,9 +40,8 @@ const Users: React.FC = () => {
 
   const [currentUser, setCurrentUser] = useState<UserData | undefined>()
   const [checkingDocs, setCheckingDocs] = useState(false)
-  const [currentStatus, setCurrentStatus] = useState<
-    UserData["status"] | undefined
-  >()
+  const [currentStatus, setCurrentStatus] = useState<string | undefined>()
+  const [docStatus, setDocStatus] = useState<string | undefined>()
   const [filterDialogIsOpen, setFilterDialogIsOpen] = useState(false)
   const [currentPage, setcurrentPage] = useState(1)
   const prefetchPage = useUsersPrefetch("getUsers")
@@ -55,8 +54,9 @@ const Users: React.FC = () => {
       page: currentPage,
       search: searchText,
       status: currentStatus,
+      doc_status: docStatus,
     }),
-    [currentPage, searchText, currentStatus]
+    [currentPage, searchText, currentStatus, docStatus]
   )
   const { data, isLoading } = useGetUsersQuery(requestOptions)
 
@@ -109,8 +109,8 @@ const Users: React.FC = () => {
           </div>
         </div>
 
-        <Tabs className="mb-4">
-          <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap mb-4">
+          <Tabs>
             <TabsList className="capitalize" _style={2}>
               {(
                 [
@@ -120,13 +120,10 @@ const Users: React.FC = () => {
                     count: shortNum(data?.count ?? 0),
                   },
                   { label: "Active", value: "active" },
-                  {
-                    label: "Suspended",
-                    value: "suspended",
-                  },
+                  { label: "Suspended", value: "suspended" },
                 ] as {
                   label: string
-                  value: UserData["status"]
+                  value: string
                   count?: number
                 }[]
               ).map(({ value, label, count }) => (
@@ -144,8 +141,37 @@ const Users: React.FC = () => {
                 </TabsTrigger>
               ))}
             </TabsList>
-          </div>
-        </Tabs>
+          </Tabs>
+          -
+          <Tabs value={docStatus}>
+            <TabsList className="capitalize" _style={2}>
+              {(
+                [
+                  { label: "All", value: undefined },
+                  { label: "Verified", value: "verified" },
+                  { label: "Unverified", value: "submitted" },
+                ] as {
+                  label: string
+                  value: string
+                  count?: number
+                }[]
+              ).map(({ value, label, count }) => (
+                <TabsTrigger
+                  isActive={docStatus == value}
+                  onClick={() => {
+                    setDocStatus(value)
+                  }}
+                  key={label}
+                  value={String(value)}
+                  _style={2}
+                  count={count}
+                >
+                  {label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+        </div>
 
         <div className="table-container">
           <table>
