@@ -61,7 +61,6 @@ const NotificationDialog = (props: NotificationDialogProps) => {
               <DialogDescription></DialogDescription>
             </DialogHeader>
             <div className="space-y-6 px-5 pt-3 pb-6">
-              {JSON.stringify(handler.form.formState.errors)}
               <FormField
                 control={handler.form.control}
                 name="types"
