@@ -18,6 +18,8 @@ const formSchema = z.object({
 
 type FormType = z.infer<typeof formSchema>
 
+console.log(import.meta.env)
+
 // const fields: {
 //   name: keyof FormType,
 //   label: string
