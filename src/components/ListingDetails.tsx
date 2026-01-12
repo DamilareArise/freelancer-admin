@@ -34,7 +34,7 @@ const ListingDetails: React.FC<{ listing: Listing }> = (handler) => {
         {/* {images?.length ? (
           // h-[23rem]
           <img
-            src={images[0].resource}
+            src={images[0]?.resource}
             className="h-[23rem] mb-3.5 rounded-lg w-full object-cover"
           />
         ) : (

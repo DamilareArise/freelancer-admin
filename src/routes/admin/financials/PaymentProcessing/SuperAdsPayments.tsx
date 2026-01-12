@@ -369,7 +369,7 @@ const SuperAdsPayments = () => {
                       <span className="flex gap-2 items-center">
                         <Avatar className="size-7">
                           <AvatarImage
-                            src={images[0].resource}
+                            src={images[0]?.resource}
                             alt="Property Image"
                           />
                           <AvatarFallback>

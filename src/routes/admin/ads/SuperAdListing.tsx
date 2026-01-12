@@ -313,7 +313,7 @@ const AdsInfo = ({ listing }: { listing: Listing }) => {
               <span className="flex gap-2 items-center">
                 {listing.images[0] ? (
                   <img
-                    src={listing.images[0].resource}
+                    src={listing.images[0]?.resource}
                     className="rounded-full size-6 object-cover"
                   />
                 ) : (
@@ -371,7 +371,7 @@ const AdsInfo = ({ listing }: { listing: Listing }) => {
                 <span className="flex gap-2 items-center">
                   {listing.images[0] ? (
                     <img
-                      src={listing.images[0].resource}
+                      src={listing.images[0]?.resource}
                       className="rounded-full size-6 object-cover"
                     />
                   ) : (
