@@ -215,14 +215,19 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
   }
 
   const removeField = (sub: CreateCategoryFeatures) => {
-    // const id = `subcategory${subcategories.length + 1}`
-    // setSubcategories((subs) => subs.map);
     if (sub.saveId) {
       setFeaturesField(su => su.map(each => each.id == sub.id ? ({ ...each, action: "delete" }) : each))
     } else {
       setFeaturesField(su => su.filter(each => each.id != sub.id));
     }
+  }
 
+  const removePricing = (sub: CreateCategoryPricing) => {
+    if (sub.saveId) {
+      setCategoryPricing(su => su.map(each => each.id == sub.id ? ({ ...each, action: "delete" }) : each))
+    } else {
+      setCategoryPricing(su => su.filter(each => each.id != sub.id));
+    }
   }
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -314,6 +319,6 @@ export const useCategoryDialog = ({ open, category, close, copying }: CategoryDi
     onSubmit, activeField, handleFeatureFieldChange, form, handleSubCatChange,
     handlePricingChange, addField, addPricing, isSaving: isCreatingCategory || isUpdatingCategory,
     categoryPricing, featuresField, setActiveField, addSubCategory, subcategories,
-    removeSubCategory, handleDragEnd, removeField
+    removeSubCategory, handleDragEnd, removeField, removePricing
   }
 }

@@ -217,91 +217,118 @@ const CategoryDialog = (props: CategoryDialogProps) => {
                       </div>
                       <Acc.AccordionContent className="py-2 flex flex-col gap-3">
                         {/* max-h-[calc(100vh_-_30rem)] overflow-auto */}
-                        {handler.categoryPricing.map((each) => (
-                          <div
-                            key={each.id}
-                            id={each.id}
-                            className="px-4 py-2 grid grid-cols-2 gap-3"
-                          >
-                            <FormItem className="flex flex-col col-span-full">
-                              <FormLabel>Monthly Quota</FormLabel>
-                              <Sel.Select
-                                value={String(each.duration)}
-                                onValueChange={(value) => {
-                                  handler.handlePricingChange({
-                                    key: "duration",
-                                    fieldId: each.id,
-                                    value,
-                                  })
-                                }}
-                              >
+                        {handler.categoryPricing
+                          .filter((each) => each.action !== "delete")
+                          .map((each) => (
+                            <div
+                              key={each.id}
+                              id={each.id}
+                              className="px-4 py-2 grid grid-cols-2 gap-3"
+                            >
+                              <FormItem className="flex flex-col col-span-full">
+                                <div className="flex justify-between gap-4">
+                                  <FormLabel>Monthly Quota</FormLabel>
+                                  <button
+                                    onClick={() => handler.removePricing(each)}
+                                    type="button"
+                                    className="text-xs text-destructive pl-2"
+                                  >
+                                    Remove
+                                  </button>
+                                </div>
+                                <Sel.Select
+                                  value={String(each.duration)}
+                                  onValueChange={(value) => {
+                                    handler.handlePricingChange({
+                                      key: "duration",
+                                      fieldId: each.id,
+                                      value,
+                                    })
+                                  }}
+                                >
+                                  <FormControl>
+                                    <Sel.SelectTrigger>
+                                      <Sel.SelectValue placeholder="Select a Quota" />
+                                    </Sel.SelectTrigger>
+                                  </FormControl>
+                                  <Sel.SelectContent>
+                                    {new Array(36)
+                                      .fill(0)
+                                      .map((_each, monthIndex) => {
+                                        const inUse =
+                                          handler.categoryPricing.some(
+                                            (pricing) =>
+                                              pricing.duration ===
+                                                monthIndex + 1 &&
+                                              pricing.id !== each.id &&
+                                              pricing.action !== "delete"
+                                          )
+                                        return (
+                                          <Sel.SelectItem
+                                            disabled={inUse}
+                                            value={String(monthIndex + 1)}
+                                            key={monthIndex + 1 + "unit"}
+                                          >
+                                            {monthIndex + 1} Month
+                                            {monthIndex + 1 > 1 && "s"}
+                                            {inUse && (
+                                              <span className="text-destructive text-xs ml-2">
+                                                (Already in use)
+                                              </span>
+                                            )}
+                                          </Sel.SelectItem>
+                                        )
+                                      })}
+                                  </Sel.SelectContent>
+                                </Sel.Select>
+                                <FormMessage />
+                              </FormItem>
+
+                              <FormItem className="flex flex-col">
+                                <FormLabel className="text-neutral-600">
+                                  Price
+                                </FormLabel>
                                 <FormControl>
-                                  <Sel.SelectTrigger>
-                                    <Sel.SelectValue placeholder="Select a Quota" />
-                                  </Sel.SelectTrigger>
+                                  <CurrencyInput
+                                    value={each.price}
+                                    onValueChange={({ floatValue }) =>
+                                      handler.handlePricingChange({
+                                        key: "price",
+                                        value: floatValue,
+                                        fieldId: each.id,
+                                      })
+                                    }
+                                    placeholder="Price"
+                                  />
                                 </FormControl>
-                                <Sel.SelectContent>
-                                  {new Array(36)
-                                    .fill(0)
-                                    .map((_each, monthIndex) => (
-                                      <Sel.SelectItem
-                                        value={String(monthIndex + 1)}
-                                        key={monthIndex + 1 + "unit"}
-                                      >
-                                        {monthIndex + 1} Month
-                                        {monthIndex + 1 > 1 && "s"}
-                                      </Sel.SelectItem>
-                                    ))}
-                                </Sel.SelectContent>
-                              </Sel.Select>
-                              <FormMessage />
-                            </FormItem>
+                                <FormMessage />
+                              </FormItem>
 
-                            <FormItem className="flex flex-col">
-                              <FormLabel className="text-neutral-600">
-                                Price
-                              </FormLabel>
-                              <FormControl>
-                                <CurrencyInput
-                                  value={each.price}
-                                  onValueChange={({ floatValue }) =>
-                                    handler.handlePricingChange({
-                                      key: "price",
-                                      value: floatValue,
-                                      fieldId: each.id,
-                                    })
-                                  }
-                                  placeholder="Price"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
+                              <FormItem className="flex flex-col">
+                                <FormLabel className="text-neutral-600">
+                                  Discount
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    value={each.discount}
+                                    onChange={(event) =>
+                                      handler.handlePricingChange({
+                                        key: "discount",
+                                        value: event.target.value,
+                                        fieldId: each.id,
+                                      })
+                                    }
+                                    placeholder="Discount"
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
 
-                            <FormItem className="flex flex-col">
-                              <FormLabel className="text-neutral-600">
-                                Discount
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  value={each.discount}
-                                  onChange={(event) =>
-                                    handler.handlePricingChange({
-                                      key: "discount",
-                                      value: event.target.value,
-                                      fieldId: each.id,
-                                    })
-                                  }
-                                  placeholder="Discount"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-
-                            <div className="col-span-full px-4 mt-4">
-                              <Separator className="bg-neutral-200" />
+                              <div className="col-span-full px-4 mt-4">
+                                <Separator className="bg-neutral-200" />
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          ))}
                       </Acc.AccordionContent>
                     </Acc.AccordionItem>
                   </Acc.Accordion>
@@ -500,8 +527,6 @@ const SortableField = ({
           {each.label_en} | {each.label_hr}
           <button
             onClick={(e) => {
-              console.log(each)
-
               e.stopPropagation()
               handler.removeField(each)
             }}
