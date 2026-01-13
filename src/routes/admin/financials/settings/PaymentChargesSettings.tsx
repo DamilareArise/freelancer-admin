@@ -19,7 +19,7 @@ import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Edit2 } from "lucide-react"
-import { currency } from "@/lib/helpers"
+import { currency, toCurrency } from "@/lib/helpers"
 import {
   PaymentCharge,
   useGetChargesQuery,
@@ -31,6 +31,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 const formSchema = z.object({
   charge_percent: z.coerce.number().min(0, "Must be positive"),
   charge_fixed: z.coerce.number().min(0, "Must be positive"),
+  base_amount: z.coerce.number().min(0, "Must be positive"),
 })
 
 const PaymentChargesSettings = () => {
@@ -70,10 +71,14 @@ const PaymentChargesSettings = () => {
               key={charge.for_key}
               className="rounded-lg border p-4 flex flex-col items-start bg-white"
             >
-              <div className="font-medium text-sm mb-2">{charge.for_label}</div>
+              <div className="font-medium text-sm mb-2">
+                {charge.for_label}{" "}
+                {charge.for_all && (
+                  <span>({toCurrency(charge.base_amount)})</span>
+                )}
+              </div>
               <div className="text-2xl font-bold mb-4">
-                {charge.charge_percent}% + {currency.symbol}
-                {charge.charge_fixed}
+                {charge.charge_percent}% + {toCurrency(charge.charge_fixed)}
               </div>
               <Button
                 variant="outline"
@@ -119,6 +124,7 @@ function EditChargeDialog({
       ? {
           charge_fixed: charge.charge_fixed,
           charge_percent: charge.charge_percent,
+          base_amount: charge.base_amount,
         }
       : undefined,
   })
@@ -147,8 +153,10 @@ function EditChargeDialog({
     <Dialog open={open} onOpenChange={isLoading ? undefined : onClose}>
       <DialogContent className="max-w-[85vw] sm:max-w-md h-fit">
         <DialogHeader>
-          <DialogTitle className="text-start mb-2 text-primary-1000">
-            Edit {charge.for_label} Charge
+          <DialogTitle className="text-start mb-2 text-primary-1000 leading-6 ">
+            {charge.for_all
+              ? `Price and Charges for ${charge.for_label}`
+              : `Edit Charge for ${charge.for_label}`}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -156,12 +164,36 @@ function EditChargeDialog({
             onSubmit={form.handleSubmit(handleSaveCharge)}
             className="space-y-4"
           >
+            {charge.for_all && (
+              <FormField
+                control={form.control}
+                name="base_amount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Price ({currency.symbol})</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        step="0.01"
+                        min={0}
+                        {...field}
+                        value={field.value ?? ""}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
             <FormField
               control={form.control}
               name="charge_percent"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Percentage (%)</FormLabel>
+                  <FormLabel>
+                    Percentage {charge.for_all && "Charge"} (%)
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -181,7 +213,10 @@ function EditChargeDialog({
               name="charge_fixed"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Fixed Amount ({currency.symbol})</FormLabel>
+                  <FormLabel>
+                    Fixed {charge.for_all && "Charge"} Amount ({currency.symbol}
+                    )
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="number"

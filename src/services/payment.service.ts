@@ -21,6 +21,8 @@ export interface PaymentCharge {
 	charge_fixed: number;
 	created_at: string;
 	updated_at: string;
+	base_amount: number;
+	for_all?: boolean;
 }
 
 
@@ -56,6 +58,11 @@ const paymentApi = appApi.injectEndpoints({
 		getCharges: build.query<PaymentCharge[], null>({
 			query: () => ({ url: 'admin/charges/' }),
 			transformErrorResponse: transformValidationResponse,
+			transformResponse: (response: PaymentCharge[]) => response.map((charge) => ({
+				...charge,
+				for_all: charge.for_key.startsWith("all_category_"),
+				base_amount: Number(charge.base_amount)
+			})),
 			providesTags: ["PaymentSetting"]
 		}),
 
