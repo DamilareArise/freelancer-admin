@@ -8,12 +8,15 @@ import { AnyObject } from "yup"
 import { z } from "zod"
 
 const formSchema = z.object({
-  question: z.string().nonempty("Question is required"),
-  answer: z.string().nonempty("Answer is required"),
+  question_en: z.string().nonempty("Question is required"),
+  question_hr: z.string().nonempty("Question is required"),
+  answer_en: z.string().nonempty("Answer is required"),
+  answer_hr: z.string().nonempty("Answer is required"),
 })
 
 const defaultForm: z.infer<typeof formSchema> = {
-  question: "", answer: "",
+  question_en: "", question_hr: "",
+  answer_en: "", answer_hr: "",
 }
 
 export const useFAQDialog = ({ open, faq, close }: FAQDialogProps) => {
@@ -29,16 +32,22 @@ export const useFAQDialog = ({ open, faq, close }: FAQDialogProps) => {
     if (!open) {
       form.reset(defaultForm)
     } else if (open && faq) {
-      form.setValue("question", faq.question, { shouldValidate: true });
-      form.setValue("answer", faq.answer, { shouldValidate: true });
+      form.setValue("question_en", faq.question_en, { shouldValidate: true });
+      form.setValue("question_hr", faq.question_hr, { shouldValidate: true });
+      form.setValue("answer_en", faq.answer_en, { shouldValidate: true });
+      form.setValue("answer_hr", faq.answer_hr, { shouldValidate: true });
     }
   }, [open, faq, form])
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const { data, error }: AnyObject = await (faq ? updateFAQ({
       ...values,
+      question: values.question_en,
+      answer: values.answer_en,
       id: faq.id,
     }) : addFAQ({
+      question: values.question_en,
+      answer: values.answer_en,
       ...values,
     }))
 

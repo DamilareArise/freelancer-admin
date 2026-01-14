@@ -8,7 +8,11 @@ export interface FAQ {
 	id: number;
 	rank: number;
 	question: string;
-	answer: string
+	question_hr: string;
+	question_en: string;
+	answer: string;
+	answer_hr: string;
+	answer_en: string;
 }
 
 export interface FAQDialogProps {

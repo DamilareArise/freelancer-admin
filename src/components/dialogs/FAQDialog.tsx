@@ -47,11 +47,11 @@ const FAQDialog = (props: FAQDialogProps) => {
             <div className="space-y-4 px-5 pt-3 pb-6">
               <FormField
                 control={handler.form.control}
-                name="question"
+                name="question_en"
                 render={({ field }) => (
                   <FormItem className=" flex flex-col">
                     <FormLabel className="font-medium text-neutral-800">
-                      Question
+                      Question (English)
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="Question" {...field} />
@@ -62,14 +62,45 @@ const FAQDialog = (props: FAQDialogProps) => {
               />
               <FormField
                 control={handler.form.control}
-                name="answer"
+                name="question_hr"
                 render={({ field }) => (
                   <FormItem className=" flex flex-col">
                     <FormLabel className="font-medium text-neutral-800">
-                      Answer
+                      Question (Croatian)
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="Pitanje" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <hr className="my-6" />
+              <FormField
+                control={handler.form.control}
+                name="answer_en"
+                render={({ field }) => (
+                  <FormItem className=" flex flex-col">
+                    <FormLabel className="font-medium text-neutral-800">
+                      Answer (English)
                     </FormLabel>
                     <FormControl>
                       <Textarea placeholder="Answer here..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={handler.form.control}
+                name="answer_hr"
+                render={({ field }) => (
+                  <FormItem className=" flex flex-col">
+                    <FormLabel className="font-medium text-neutral-800">
+                      Answer (Croatian)
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Odgovorite ovdje..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
